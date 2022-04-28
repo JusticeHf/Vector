@@ -7,34 +7,6 @@ using Value = double;
 class Vector
 {
 public:
-
-    class Iterator
-    {
-        Value* _ptr;
-    public:
-        explicit Iterator(Value* ptr);
-
-        Value& operator*();
-
-        const Value& operator*() const;
-
-        Value* operator->();
-
-        const Value* operator->() const;
-
-        Iterator operator++();
-
-        Iterator operator++(int);
-
-        Iterator operator--();
-
-        Iterator operator--(int);
-
-        bool operator==(const Iterator& other) const;
-
-        bool operator!=(const Iterator& other) const;
-    };
-
     // All c-tors and "=" operators make vectors 
     // where _capacity is equal to _size
     Vector() = default;
@@ -143,13 +115,36 @@ public:
     */
     void shrinkToFit();
 
+    class Iterator
+    {
+        Value* _ptr;
+    public:
+        explicit Iterator(Value* ptr);
+
+        Value& operator*();
+
+        const Value& operator*() const;
+
+        Value* operator->();
+
+        const Value* operator->() const;
+
+        Iterator operator++();
+
+        Iterator operator++(int);
+
+        bool operator==(const Iterator& other) const;
+
+        bool operator!=(const Iterator& other) const;
+    };
+
     Iterator begin();
 
     Iterator end();
 private:
     Value* _data = nullptr;
     size_t _size = 0;
-    size_t _capacity = 1;
+    size_t _capacity = 0;
     float _multiplicativeCoef = 2.0f;
 };
 
