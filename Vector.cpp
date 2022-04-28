@@ -91,7 +91,7 @@ void Vector::insert(const Value& value, size_t pos)
 {
 	if (_capacity == 0)
 	{
-        reserve(size_t(_multiplicativeCoef));
+		reserve(size_t(_multiplicativeCoef));
 	}
 	if (loadFactor() == 1)
 	{
@@ -99,10 +99,10 @@ void Vector::insert(const Value& value, size_t pos)
 	}
 	for (size_t i = _size; i > pos; --i) 
 	{
-        _data[i] = _data[i - 1];
-    }
-    _data[pos] = value;
-    _size++;
+		_data[i] = _data[i - 1];
+	}
+	_data[pos] = value;
+	_size++;
 }
 
 void Vector::insert(const Value* values, size_t size, size_t pos)
@@ -136,8 +136,8 @@ void Vector::erase(size_t pos, size_t count)
 {
 	if (_size == 0) 
 	{
-        throw std::out_of_range("Removing elements from a vector with 0");
-    }
+		throw std::out_of_range("Removing elements from a vector with 0");
+	}
 	if (pos + count > _size)
 	{
 		_size = pos;
@@ -208,13 +208,13 @@ void Vector::reserve(size_t capacity)
 		Value* ptr = _data;
 		_data = new Value[capacity];
 		if (ptr != nullptr)
-		 {
-            for (size_t i = 0; i < _size; i++) 
+		{
+			for (size_t i = 0; i < _size; i++) 
 			{
-                _data[i] = ptr[i];
-            }
-            delete[] ptr;
-        }
+				_data[i] = ptr[i];
+			}
+			delete[] ptr;
+		}
 		_capacity = capacity;
 	}
 }
@@ -222,17 +222,16 @@ void Vector::reserve(size_t capacity)
 void Vector::shrinkToFit()
 {
 	Value* ptr = new Value[_size];
-    if (_data != nullptr) 
+	if (_data != nullptr) 
 	{
-        for (size_t i = 0; i < _size; ++i) 
+		for (size_t i = 0; i < _size; ++i) 
 		{
-            ptr[i] = _data[i];
-        }
-
-        delete[] _data;
-    }
-    _data = ptr;
-    _capacity = _size;
+			ptr[i] = _data[i];
+		}
+		delete[] _data;
+	}
+	_data = ptr;
+	_capacity = _size;
 }
 
 Vector::Iterator Vector::begin()
@@ -250,44 +249,44 @@ Vector::Iterator::Iterator(Value* ptr):_ptr(ptr)
 
 Value& Vector::Iterator:: operator*()
 {
-    return *_ptr;
+	return *_ptr;
 }
 
 const Value& Vector::Iterator:: operator*() const
 {
-    return *_ptr;
+	return *_ptr;
 }
 
 Value* Vector::Iterator:: operator->()
 {
-    return _ptr;
+	return _ptr;
 }
 
 const Value* Vector::Iterator:: operator->() const
 {
-    return _ptr;
+	return _ptr;
 }
 
 Vector::Iterator Vector::Iterator:: operator++()
 {
-    ++_ptr;
-    return *this;
+	++_ptr;
+	return *this;
 }
 
 Vector::Iterator Vector::Iterator:: operator++(int)
 {
-    Vector::Iterator bufPtr = *this;
-    ++*this;
-    return bufPtr;
+	Vector::Iterator bufPtr = *this;
+	++*this;
+	return bufPtr;
 }
 
 bool Vector::Iterator:: operator==(const Vector::Iterator& other) const
 {
-    return _ptr == other._ptr;
+	return _ptr == other._ptr;
 }
 
 bool Vector::Iterator:: operator!=(const Vector::Iterator& other) const
 {
-    return !(*this == other);
+	return !(*this == other);
 }
 
