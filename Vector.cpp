@@ -8,7 +8,6 @@ Vector::Vector(const Value* rawArray, const size_t size, float coef)
 :_multiplicativeCoef(coef), _size(size), _capacity(size)
 {
 	_data = new Value[_capacity];
-	
 	for (size_t i = 0; i < size; i++)
 	{
 		_data[i] = rawArray[i];
@@ -21,7 +20,6 @@ Vector::Vector(const Vector& other)
 	_capacity = other._size;
 	_multiplicativeCoef = other._multiplicativeCoef;
 	_data = new Value[_capacity];
-
 	for (size_t i = 0; i < _size; i++)
 	{
 		_data[i] = other._data[i]; 
@@ -37,13 +35,11 @@ Vector& Vector::operator=(const Vector& other)
 		_size = other._size;
 		_data = new Value[_capacity];
 		_multiplicativeCoef = other._multiplicativeCoef;
-
 		for (size_t i = 0; i < _size; i++)
 		{
 			_data[i] = other._data[i];
 		}
 	}
-
 	return *this;
 }
 
@@ -73,7 +69,6 @@ Vector& Vector::operator=(Vector&& other) noexcept
 		other._capacity = 0;
 		other._multiplicativeCoef = 0;
 	}
-
 	return *this;
 }
 
@@ -98,17 +93,14 @@ void Vector::insert(const Value& value, size_t pos)
 	{
         reserve(size_t(_multiplicativeCoef));
 	}
-
 	if (loadFactor() == 1)
 	{
 		reserve(_capacity * size_t(_multiplicativeCoef));
 	}
-
 	for (size_t i = _size; i > pos; --i) 
 	{
         _data[i] = _data[i - 1];
     }
-
     _data[pos] = value;
     _size++;
 }
@@ -119,7 +111,6 @@ void Vector::insert(const Value* values, size_t size, size_t pos)
 	{
 		reserve(size + _size);
 	}
-
 	for (size_t i = 0; i < size; ++i)
 	{
 		insert(values[i], pos + i);
@@ -147,7 +138,6 @@ void Vector::erase(size_t pos, size_t count)
 	{
         throw std::out_of_range("Removing elements from a vector with 0");
     }
-
 	if (pos + count > _size)
 	{
 		_size = pos;
@@ -158,7 +148,6 @@ void Vector::erase(size_t pos, size_t count)
 		{
 			_data[i] = _data[i + count];
 		}
-
 		_size -= count;
 	}
 }
@@ -192,23 +181,11 @@ double Vector::loadFactor() const
 
 Value& Vector::operator[](size_t idx)
 {
-	/*
-		if (idx >= _size)
-		{
-			return
-		}
-	*/	
 	return _data[idx];
 }
 
 const Value& Vector::operator[](size_t idx) const
 {
-	/*
-		if (idx >= _size)
-		{
-			return
-		}
-	*/	
 	return _data[idx];
 }
 
@@ -230,17 +207,14 @@ void Vector::reserve(size_t capacity)
 	{	
 		Value* ptr = _data;
 		_data = new Value[capacity];
-		
 		if (ptr != nullptr)
 		 {
             for (size_t i = 0; i < _size; i++) 
 			{
                 _data[i] = ptr[i];
             }
-
             delete[] ptr;
         }
-
 		_capacity = capacity;
 	}
 }
@@ -248,7 +222,6 @@ void Vector::reserve(size_t capacity)
 void Vector::shrinkToFit()
 {
 	Value* ptr = new Value[_size];
-
     if (_data != nullptr) 
 	{
         for (size_t i = 0; i < _size; ++i) 
@@ -258,7 +231,6 @@ void Vector::shrinkToFit()
 
         delete[] _data;
     }
-	
     _data = ptr;
     _capacity = _size;
 }
@@ -274,9 +246,7 @@ Vector::Iterator Vector::end()
 }
 
 Vector::Iterator::Iterator(Value* ptr):_ptr(ptr)
-{
-
-}
+{}
 
 Value& Vector::Iterator:: operator*()
 {
