@@ -31,14 +31,8 @@ Vector& Vector::operator=(const Vector& other)
 	if (this != &other)
 	{
 		delete[] _data;
-		_capacity = other._size;
-		_size = other._size;
-		_data = new Value[_capacity];
-		_multiplicativeCoef = other._multiplicativeCoef;
-		for (size_t i = 0; i < _size; i++)
-		{
-			_data[i] = other._data[i];
-		}
+		Vector secondVector(other);
+		*this = std::move(secondVector);
 	}
 	return *this;
 }
