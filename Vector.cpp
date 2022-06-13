@@ -39,14 +39,7 @@ Vector& Vector::operator=(const Vector& other)
 
 Vector::Vector(Vector&& other) noexcept
 {
-	_size = other._size;
-	_capacity = other._size;
-	_data = other._data;
-	_multiplicativeCoef = other._multiplicativeCoef;
-	other._data = nullptr;
-	other._size = 0;
-	other._capacity = 0;
-	other._multiplicativeCoef = 0;
+	*this = std::move(other);
 }
 
 Vector& Vector::operator=(Vector&& other) noexcept
@@ -170,7 +163,7 @@ size_t Vector::capacity() const
 
 double Vector::loadFactor() const
 {
-	return (double)_size / (double)_capacity;
+	return double(_size) / double(_capacity);
 }
 
 Value& Vector::operator[](size_t idx)
