@@ -15,16 +15,8 @@ Vector::Vector(const Value* rawArray, const size_t size, float coef)
 }
 
 Vector::Vector(const Vector& other)
-{
-	_size = other._size;
-	_capacity = other._size;
-	_multiplicativeCoef = other._multiplicativeCoef;
-	_data = new Value[_capacity];
-	for (size_t i = 0; i < _size; i++)
-	{
-		_data[i] = other._data[i]; 
-	}
-}
+:Vector(other._data, other._size, other._multiplicativeCoef)
+{}
 
 Vector& Vector::operator=(const Vector& other)
 {
